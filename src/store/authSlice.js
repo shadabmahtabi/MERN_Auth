@@ -25,6 +25,7 @@ export const profile = createAsyncThunk('auth/profile', async (thunkAPI) => {
     try {
 
         const response = await axiosInstance.get('/users/profile');
+        // console.log(response)
         return response.data;
         
     } catch (error) {
@@ -83,6 +84,8 @@ const authSlice = createSlice({
       .addCase(profile.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+        state.token = null;
+        localStorage.removeItem('token')
       });
   },
 });
